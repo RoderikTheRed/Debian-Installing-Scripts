@@ -23,14 +23,12 @@ mysql_secure_installation
 echo -e "${GREEN}SUCCESS: Finished Setting Up MySQL Database...${ENDCOLOR}"
 echo ""
 echo -e "${DEFAULT}INFO: Setting up PhpMyAdmin...${ENDCOLOR}"
-cd /usr/share
-wget https://files.phpmyadmin.net/phpMyAdmin/5.1.1/phpMyAdmin-5.1.1-all-languages.zip
-unzip phpMyAdmin-5.1.1-all-languages.zip
-rm phpMyAdmin-5.1.1-all-languages.zip
-mv phpMyAdmin-*-all-languages phpmyadmin
-chmod -R 0755 phpmyadmin
-cd /etc/apache2/conf-available
-wget https://pastebin.com/raw/VFAuWSyq && mv VFAuWSyq phpmyadmin.conf
+wget -O /usr/share/phpmyadmin.zip https://files.phpmyadmin.net/phpMyAdmin/5.1.1/phpMyAdmin-5.1.1-all-languages.zip
+unzip /usr/share/phpmyadmin.zip
+rm /usr/share/phpmyadmin.zip
+mv /usr/share/phpMyAdmin-*-all-languages /usr/share/phpmyadmin
+chmod -R 0755 /usr/share/phpmyadmin
+wget -O /etc/apache2/conf-available/phpmyadmin.conf https://pastebin.com/raw/VFAuWSyq
 a2enconf phpmyadmin
 systemctl reload apache2
 mkdir /usr/share/phpmyadmin/tmp
