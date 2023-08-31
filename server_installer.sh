@@ -12,9 +12,9 @@ if [ "$EUID" -ne 0 ]
 	exit
 fi
 echo -e "${DEFAULT}INFO: Updating System...${ENDCOLOR}"
-apt -qq update
+apt -qqy update
 echo "${DEFAULT}INFO: Starting Downloading...${ENDCOLOR}"
-apt -qqy install apache2 mariadb-server php php-xml php-mysqli php-curl unzip wget
+apt -qqy install apache2 mariadb-server php php-xml php-mysqli php-curl php-mysql php-mbstring3 unzip wget
 echo ""
 echo -e "${GREEN}SUCCESS: Finished Downloading, setting up...${ENDCOLOR}"
 echo ""
@@ -33,7 +33,7 @@ a2enconf phpmyadmin
 systemctl reload apache2
 mkdir /usr/share/phpmyadmin/tmp
 chown -R www-data:www-data /usr/share/phpmyadmin/tmp/
-mysql --user="root" --execute="UPDATE mysql.user SET plugin = 'mysql_native_password' WHERE user = 'root' AND plugin = 'unix_socket';"
+mysql --user="root" -p --execute="UPDATE mysql.user SET plugin = 'mysql_native_password' WHERE user = 'root' AND plugin = 'unix_socket';"
 echo ""
 echo -e "${GREEN}SUCCESS: Finished Setting Up Everything${ENDCOLOR}"
 echo ""
